@@ -144,7 +144,7 @@ EOF
 
     # 检查响应
     if echo "$RESPONSE" | grep -q '"html_url"'; then
-        URL=$(echo "$RESPONSE" | grep -o '"html_url":"[^"]*' | sed 's/"html_url":"//')
+        URL=$(echo "$RESPONSE" | sed -n 's/.*"html_url": *"\([^"]*\).*/\1/p' | head -n 1)+"/raw/$FILE_NAME"
         echo "上传成功! Gist URL: $URL"
     else
         echo "上传失败，API响应:"
