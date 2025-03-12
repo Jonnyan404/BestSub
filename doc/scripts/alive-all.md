@@ -19,7 +19,7 @@ save:
   before-save-do:                                                                                            
     - /app/output/alive-all.sh                                                                               
   after-save-do:                                                                                             
-    - /app/output/upload.sh /app/output/alive-all.yaml gist "update node"    # 目前支持gist/webdav/all/none参数,gist和webdav均调用的本配置文件中的相关参数,如有上传需求,请注意配置相关参数.                   
+    - /app/output/upload.sh /app/output/alive-all.yaml gist "update node"    # 目前支持gist/webdav/all/none参数,gist和webdav均调用的config.yaml文件中的相关参数,如有上传需求,请注意配置相关参数.                   
   # Save port                                                                                                
   port: 8080
 省略后面配置
