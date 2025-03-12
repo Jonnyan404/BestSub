@@ -46,6 +46,6 @@ EOF
 if yq -o=yaml  /tmp/bestsub_temp_proxies.json > /app/output/alive-all.yaml; then
     echo "alpine: 生成所有存活节点成功"
 else
-    yq -y  /tmp/bestsub_temp_proxies.json > /app/output/alive-all.yaml
+    yq -y '.' /tmp/bestsub_temp_proxies.json > /app/output/alive-all.yaml
     echo "ubuntu: 生成所有存活节点成功"
 fi
