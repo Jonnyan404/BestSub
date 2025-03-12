@@ -1,3 +1,7 @@
+
+
+# after-save-do 用法等修复,项目暂时不支持.
+
 # 使用说明
 
 alive-all 包含测速通过和测速不通过但存活的所有节点,仅适用于docker镜像. 其它方式运行,请注意自行调整脚本.
@@ -6,7 +10,6 @@ alive-all 包含测速通过和测速不通过但存活的所有节点,仅适用
 ```bash
 wget "https://raw.githubusercontent.com/Jonnyan404/BestSub/refs/heads/master/doc/scripts/alive-all.sh"
 wget "https://raw.githubusercontent.com/Jonnyan404/BestSub/refs/heads/master/doc/scripts/upload.sh"
-chmod 666 alive-all.sh upload.sh
 ```
 
 2. 在 `config.yaml` 文件中增加下列配置
