@@ -67,7 +67,7 @@ count_json_names() {
     
     if [ ! -f "$json_file" ]; then
         echo "错误：JSON文件不存在 - $json_file"
-        return 1
+        return 0
     fi
     
     # 从JSON中提取所有name字段，然后统计
@@ -91,7 +91,7 @@ send_telegram_message() {
 
 
 res=$(count_json_names /tmp/bestsub_temp_proxies.json)
-if [ "$res" -ne 0 ]; then
+if [ "$res" -eq 0 ]; then
     send_telegram_message "无节点可用，请检查日志"
     exit 1
 else
