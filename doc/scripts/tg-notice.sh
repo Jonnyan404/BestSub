@@ -92,7 +92,8 @@ send_telegram_message() {
 }
 
 
-res=$(count_json_names /tmp/bestsub_temp_proxies.json)
+#res=$(count_json_names /tmp/bestsub_temp_proxies.json)
+res=$(count_json_names /app/output/speed.yaml)
 if [ "$res" -eq 0 ]; then
     send_telegram_message "无节点可用，请检查日志"
     exit 1
