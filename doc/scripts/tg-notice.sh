@@ -63,16 +63,17 @@ EOF
 
 # 函数：统计JSON文件中name字段出现的次数
 count_json_names() {
-    json_file="$1"
+    #json_file="$1"
+    yaml_file="$1"
     
-    if [ ! -f "$json_file" ]; then
-        echo "错误：JSON文件不存在 - $json_file"
+    if [ ! -f "$yaml_file" ]; then
+        echo "错误：JSON文件不存在 - $yaml_file"
         return 0
     fi
     
     # 从JSON中提取所有name字段，然后统计
-    #`jq -r '..|.name? | select(. != null)' "$json_file" | sort | uniq -c|wc -l
-    yq '.proxies[].name' "$yaml_file" | wc -l
+    #jq -r '..|.name? | select(. != null)' "$json_file" | sort | uniq -c|wc -l
+    yq eval '.proxies[].name' "$yaml_file" | wc -l
 }
 
 # 函数：发送Telegram消息
@@ -91,7 +92,7 @@ send_telegram_message() {
 }
 
 
-res=$(count_json_names /app/output/speed.yaml)
+res=$(count_json_names /tmp/bestsub_temp_proxies.json)
 if [ "$res" -eq 0 ]; then
     send_telegram_message "无节点可用，请检查日志"
     exit 1
