@@ -67,7 +67,7 @@ count_json_names() {
     yaml_file="$1"
     
     if [ ! -f "$yaml_file" ]; then
-        echo "错误：JSON文件不存在 - $yaml_file"
+        echo "错误：YAML文件不存在 - $yaml_file"
         return 0
     fi
     
@@ -81,14 +81,20 @@ send_telegram_message() {
     message="$1"
     parse_mode="${2:-HTML}"  # 默认使用HTML格式
 
-    message=$(printf "%s" "$message" | curl "$PROXY_ARGS" -Gso /dev/null -w '%{url_effective}' --data-urlencode @- "" | cut -c 3-)
-
     # 发送消息
-    curl "$PROXY_ARGS" -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
-        -d "chat_id=$CHAT_ID" \
-        -d "text=$message" \
-        -d "parse_mode=$parse_mode" \
-        -d "disable_web_page_preview=true"
+    if [ -n "$PROXY_ARGS" ]; then
+        curl $PROXY_ARGS -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$message" \
+            -d "parse_mode=$parse_mode" \
+            -d "disable_web_page_preview=true"
+    else
+        curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$message" \
+            -d "parse_mode=$parse_mode" \
+            -d "disable_web_page_preview=true"
+    fi
 }
 
 
