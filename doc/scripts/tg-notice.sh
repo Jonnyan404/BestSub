@@ -72,7 +72,7 @@ count_json_names() {
     
     # 从JSON中提取所有name字段，然后统计
     #`jq -r '..|.name? | select(. != null)' "$json_file" | sort | uniq -c|wc -l
-    yq eval '.proxies[].name' "$yaml_file" | wc -l
+    yq '.proxies[].name' "$yaml_file" | wc -l
 }
 
 # 函数：发送Telegram消息
