@@ -71,7 +71,8 @@ count_json_names() {
     fi
     
     # 从JSON中提取所有name字段，然后统计
-    jq -r '..|.name? | select(. != null)' "$json_file" | sort | uniq -c|wc -l
+    #`jq -r '..|.name? | select(. != null)' "$json_file" | sort | uniq -c|wc -l
+    yq eval '.proxies[].name' "$yaml_file" | wc -l
 }
 
 # 函数：发送Telegram消息
@@ -90,7 +91,7 @@ send_telegram_message() {
 }
 
 
-res=$(count_json_names /tmp/bestsub_temp_proxies.json)
+res=$(count_json_names /app/output/speed.yaml)
 if [ "$res" -eq 0 ]; then
     send_telegram_message "无节点可用，请检查日志"
     exit 1
